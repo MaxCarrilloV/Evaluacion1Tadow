@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import './App.css'
-import { Card, CardMedia } from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, List, ListItem, Typography, Box } from "@mui/material";
+
 
 function App() {
  
   const [perrito, setPerrito] = useState({name:"", image:""})
   const [recarga, setRecarga] = useState(false);
+  const [rechazados, setRechazados ] = useState([])
+  const [aceptados, setAceptados] = useState([])
+
 
   const obtnerNombrePerro = () => {
     let result = '';
@@ -32,8 +36,16 @@ function App() {
       console.error(error);
       setRecarga(false)
     });
-    console.log(perrito);
-    
+  }
+
+  const RechazarPerro = (perro) => {
+    setRechazados((rechazados) => [...rechazados , perro]);
+    obtnerPerro();
+  }
+
+  const AceptarPerro = (perro) => {
+    setAceptados((aceptados) => [perro,...aceptados]);
+    obtnerPerro();
   }
 
   useEffect(() => {
@@ -42,17 +54,95 @@ function App() {
   
   return (
     <div className="App">
-      {recarga && <p>Cargando perrito</p>}
-      {!recarga && perrito && 
-      <Card>
-        <CardMedia component="img" image= {perrito.image}>
+      <Box>
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        spacing={5}
+      >
+        <Grid item>
+             <h4 > Perros Aceptados</h4>
+             <List >
+               {aceptados.map((item,index) => (
+                  <ListItem kay={index} >
+                    
+                    <Card style={{ width: 350, height: 350}}>
+                        <CardMedia 
+                            style={{ width: '100%', height: '88%', objectFit: 'cover', alignItems:"center"}}  
+                            component="img" 
+                            image= {item.image} 
+                        />
+                        <CardContent >
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {item.name} 
+                          </Typography>
+                        </CardContent> 
+                      </Card>    
+                  </ListItem>
+               ))}
+            </List>
+        </Grid>
 
-        </CardMedia>
-       
-      </Card>}
-      <button onClick={obtnerPerro}>Rechazado </button>
-      <button onClick={obtnerPerro}>Aceptado </button>
+
+        <Grid item>
+        {recarga && <p>Cargando perrito</p>}
+            {!recarga && perrito && 
+              <Card style={{ width: 350, height: 350}}>
+                <CardMedia 
+                    style={{ width: '100%', height: '88%', objectFit: 'cover', alignItems:"center"}}  
+                    component="img" 
+                    image= {perrito.image} 
+                />
+                <CardContent >
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {perrito.name} 
+                  </Typography>
+                </CardContent> 
+              </Card>
+            }
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="flex-end"
+            >
+              <button onClick={() => RechazarPerro(perrito)} disabled={recarga}>Rechazado </button>
+              <button onClick={() => AceptarPerro(perrito)} disabled={recarga}>Aceptado </button>
+            </Grid>
+
+        </Grid>
+
+        <Grid item>
+             <h4> Perros Rechazados</h4>
+             <List >
+               {rechazados.map((item,index) => (
+                  <ListItem kay={index} >
+                    
+                    <Card style={{ width: 350, height: 350}}>
+                        <CardMedia 
+                            style={{ width: '100%', height: '88%', objectFit: 'cover', alignItems:"center"}}  
+                            component="img" 
+                            image= {item.image} 
+                        />
+                        <CardContent >
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {item.name} 
+                          </Typography>
+                        </CardContent> 
+                      </Card>    
+                  </ListItem>
+               ))}
+            </List>
+        </Grid>
+      </Grid>
+      </Box>
+            
+
+            
     </div>
+    
   )
 }
 
