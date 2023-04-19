@@ -39,26 +39,26 @@ function App() {
   }
 
   const RechazarPerro = (perro) => {
-    setRechazados((rechazados) => [...rechazados , perro]);
+    setRechazados((rechazados) => [perro,...rechazados]);
     obtnerPerro();
   }
 
   const AceptarPerro = (perro) => {
-    setAceptados((aceptados) => [perro,...aceptados]);
+    setAceptados((aceptados) => [perro , ...aceptados ]);
     obtnerPerro();
   }
 
   const quitarAceptado = (perro) => {
     console.log(perro);
     let result = aceptados.filter((item) => item.name!== perro.name)
-    setRechazados((rechazados) => [...rechazados , perro]);
+    setRechazados((rechazados) => [perro,...rechazados ]);
     setAceptados(result);
   }
 
   const quitarRechazado = (perro) => {
     console.log(perro);
     let result = rechazados.filter((item) => item.name!== perro.name)
-    setAceptados((rechazados) => [...rechazados , perro]);
+    setAceptados((aceptados) => [perro,...aceptados ]);
     setRechazados(result);
   }
 
