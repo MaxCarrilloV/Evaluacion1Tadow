@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import './App.css'
-import { Card, CardContent, CardMedia, Grid, List, ListItem, Typography, Box, CardActions, Button } from "@mui/material";
-
+import { Card, CardContent, CardMedia, Grid, List, ListItem, Typography, Box, CardActions, IconButton, Tooltip } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 function App() {
  
@@ -71,13 +74,45 @@ function App() {
       <Box>
       <Grid
         container
-        direction="row-reverse"
+        direction="row"
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={5}
       >
-        <Grid item>
-             <List >
+        <Grid item justifyItems="center" justifyContent="center" >
+        {recarga && <p>Cargando perrito</p>}
+            {!recarga && perrito && 
+              <Card style={{ width: 350, height: 400}}>
+                <CardMedia 
+                    style={{ width: '100%', height: '88%', objectFit: 'cover', alignItems:"center"}}  
+                    component="img" 
+                    image= {perrito.image} 
+                />
+                <CardContent >
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {perrito.name} 
+                  </Typography>
+                </CardContent> 
+              </Card>
+            }
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="flex-end"
+            >
+              <Tooltip title="Rechazar Perro">
+                <IconButton color="primary" onClick={() => RechazarPerro(perrito)} disabled={recarga}><CloseIcon/> </IconButton>
+              </Tooltip>
+              <Tooltip title="Aceptar Perro">
+                <IconButton color="primary" onClick={() => AceptarPerro(perrito)} disabled={recarga}><CheckIcon/> </IconButton>
+              </Tooltip> 
+            </Grid>
+
+        </Grid>
+
+        <Grid item >
+             <List className="list">
                <h4 > Perros Aceptados</h4>
                {aceptados.map((item,index) => (
                   <ListItem key={index} >
@@ -104,7 +139,13 @@ function App() {
                                 </CardContent> 
 
                                 <CardActions>
-                                <button onClick={() => quitarAceptado(item)}>Mover</button>
+                                  <Tooltip title="Mover Perro">
+                                    <IconButton color="primary" onClick={() => quitarAceptado(item)}><RotateLeftIcon/></IconButton>
+                                  </Tooltip>
+                                  <Tooltip title="Ver Descripcion Perro">
+                                    <IconButton color="primary"><VisibilityIcon/></IconButton>
+                                  </Tooltip>
+
                                 </CardActions>
                             </Grid>
 
@@ -117,37 +158,8 @@ function App() {
             </List>
         </Grid>
 
-
-        <Grid item>
-        {recarga && <p>Cargando perrito</p>}
-            {!recarga && perrito && 
-              <Card style={{ width: 350, height: 400}}>
-                <CardMedia 
-                    style={{ width: '100%', height: '88%', objectFit: 'cover', alignItems:"center"}}  
-                    component="img" 
-                    image= {perrito.image} 
-                />
-                <CardContent >
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {perrito.name} 
-                  </Typography>
-                </CardContent> 
-              </Card>
-            }
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="flex-end"
-            >
-              <button onClick={() => RechazarPerro(perrito)} disabled={recarga}>Rechazado </button>
-              <button onClick={() => AceptarPerro(perrito)} disabled={recarga}>Aceptado </button>
-            </Grid>
-
-        </Grid>
-
-        <Grid item>
-             <List >
+        <Grid item >
+             <List className="list">
                <h4> Perros Rechazados</h4>
                {rechazados.map((item,index) => (
                   <ListItem key={index} >
@@ -174,7 +186,12 @@ function App() {
                                 </CardContent> 
 
                                 <CardActions>
-                                <button onClick={() => quitarRechazado(item)}>Mover</button>
+                                  <Tooltip title="Mover Perro">
+                                    <IconButton color="primary" onClick={() => quitarRechazado(item)}><RotateLeftIcon/></IconButton>
+                                  </Tooltip>
+                                  <Tooltip title="Ver Descripcion Perro">
+                                    <IconButton color="primary"><VisibilityIcon/></IconButton>
+                                  </Tooltip>
                                 </CardActions>
                             </Grid>
 

@@ -12,6 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -21,7 +22,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-
+.list{
+  overflow-y: auto;
+  height: 700px;
+}
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -45,9 +49,6 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
   }
   button {
     background-color: #f9f9f9;
