@@ -77,12 +77,12 @@ function App() {
         direction="row"
         justifyContent="space-between"
         alignItems="flex-start"
-        spacing={5}
+        spacing={7}
       >
-        <Grid item justifyItems="center" justifyContent="center" >
+        <Grid  xs={12} sm={12} md={4} item justifyItems="center" justifyContent="center" >
         {recarga && <p>Cargando perrito</p>}
             {!recarga && perrito && 
-              <Card style={{ width: 350, height: 400}}>
+              <Card xs={12} sm={12} md={12}  style={{ height: 400}}>
                 <CardMedia 
                     style={{ width: '100%', height: '88%', objectFit: 'cover', alignItems:"center"}}  
                     component="img" 
@@ -100,6 +100,7 @@ function App() {
               direction="row"
               justifyContent="space-between"
               alignItems="flex-end"
+              xs={12} sm={12} md={12}
             >
               <Tooltip title="Rechazar Perro">
                 <IconButton color="primary" onClick={() => RechazarPerro(perrito)} disabled={recarga}><CloseIcon/> </IconButton>
@@ -111,13 +112,13 @@ function App() {
 
         </Grid>
 
-        <Grid item >
+        <Grid xs={6} md={4} item >
              <List className="list">
                <h4 > Perros Aceptados</h4>
                {aceptados.map((item,index) => (
                   <ListItem key={index} >
                     
-                    <Card style={{ width: 300, height: 350}}>
+                    <Card style={{ width: "100%", height: 350}}>
                         <CardMedia 
                             style={{ width: '100%', height: '84%', objectFit: 'cover', alignItems:"center"}}  
                             component="img" 
@@ -158,13 +159,13 @@ function App() {
             </List>
         </Grid>
 
-        <Grid item >
+        <Grid xs={6} md={4} item >
              <List className="list">
                <h4> Perros Rechazados</h4>
                {rechazados.map((item,index) => (
                   <ListItem key={index} >
                     
-                    <Card style={{ width: 300, height: 350}}>
+                    <Card style={{ width: "100%", height: 350}}>
                         <CardMedia 
                             style={{ width: '100%', height: '84%', objectFit: 'cover', alignItems:"center"}}  
                             component="img" 
