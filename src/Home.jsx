@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./App.css";
-import { Card, CardContent, CardMedia, Grid, List, ListItem, Typography, Box, CardActions, IconButton, Tooltip, styled, Collapse } from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, List, ListItem, Typography, Box, CardActions, IconButton, Tooltip, styled, Collapse, Button } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
@@ -9,16 +9,6 @@ import { useQueryObtenerperro } from "./Queries/queryObtenerPerro";
 import CircularProgress from '@mui/material/CircularProgress';
 
 function Home() {
-  const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme}) => ({
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }));
-
   const [rechazados, setRechazados ] = useState([])
   const [aceptados, setAceptados] = useState([])
   const [expandedAccep, setExpandedAccept] = useState(false);
@@ -110,10 +100,10 @@ function Home() {
               item
               xs={12} sm={12} md={12}
             >
-              <Tooltip title="Rechazar Perro">
+              <Tooltip title="Rechazar Perro" arrow>
                 <IconButton color="primary" onClick={() => RechazarPerro(perrito)} disabled={cargando}><CloseIcon/> </IconButton>
               </Tooltip>
-              <Tooltip title="Aceptar Perro">
+              <Tooltip title="Aceptar Perro" arrow>
                 <IconButton color="primary" onClick={() => AceptarPerro(perrito)} disabled={cargando}><CheckIcon/> </IconButton>
               </Tooltip> 
             </Grid>
@@ -128,7 +118,7 @@ function Home() {
                     
                     <Card style={{ width: "100%"}}>
                         <CardMedia 
-                            style={{ width: '100%', height: '75%', objectFit: 'cover', alignItems:"center"}}  
+                            style={{ width: '100%', height: 350, objectFit: 'cover', alignItems:"center"}}  
                             component="img" 
                             image= {item.image} 
                         />
@@ -148,19 +138,19 @@ function Home() {
                                 </CardContent> 
 
                                 <CardActions>
-                                  <Tooltip title="Mover Perro">
+                                  <Tooltip title="Mover Perro" arrow>
                                     <IconButton color="primary" onClick={() => quitarAceptado(item)}><RotateLeftIcon/></IconButton>
                                   </Tooltip>
                                   
-                                  <Tooltip title="Ver Descripcion Perro">
-                                      <ExpandMore
+                                  <Tooltip title="Ver Descripcion Perro" arrow>
+                                      <Button
                                         expand={expandedAccep}
                                         onClick={() => ExpandAceptados(item)}
                                         aria-expanded={expandedAccep}
                                         
                                       >
                                         <VisibilityIcon color="primary" />
-                                      </ExpandMore>
+                                      </Button>
                                   </Tooltip>
                                 </CardActions>
 
@@ -190,7 +180,7 @@ function Home() {
                     
                     <Card style={{ width: "100%"}}>
                         <CardMedia 
-                            style={{ width: '100%', height: '84%', objectFit: 'cover', alignItems:"center"}}  
+                            style={{ width: '100%', height: 350, objectFit: 'cover', alignItems:"center"}}  
                             component="img" 
                             image= {item.image} 
                         />
@@ -210,19 +200,19 @@ function Home() {
                                 </CardContent> 
 
                                 <CardActions>
-                                  <Tooltip title="Mover Perro">
+                                  <Tooltip title="Mover Perro" arrow>
                                     <IconButton color="primary" onClick={() => quitarRechazado(item)}><RotateLeftIcon/></IconButton>
                                   </Tooltip>
 
-                                  <Tooltip title="Ver Descripcion Perro">
-                                      <ExpandMore
+                                  <Tooltip title="Ver Descripcion Perro" arrow>
+                                      <Button
                                         expand={expandedreject}
                                         onClick={() => ExpandReject(item)}
                                         aria-expanded={expandedreject}
                                         
                                       >
                                         <VisibilityIcon color="primary" />
-                                      </ExpandMore>
+                                      </Button>
                                   </Tooltip>
                                 </CardActions>
 
