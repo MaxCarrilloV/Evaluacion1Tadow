@@ -12,7 +12,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Home></Home>
-      <p>hola</p>
     </QueryClientProvider>
   );
 }
